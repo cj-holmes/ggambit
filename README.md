@@ -14,7 +14,7 @@ full creative control.
 
 ### Attribution
 
-Chess piece SVG design file from
+Chess piece SVG design file downloaded from
 <https://commons.wikimedia.org/wiki/File:Chess_Pieces_Sprite.svg>
 
   - jurgenwesterhof (adapted from work of Cburnett), CC BY-SA 3.0

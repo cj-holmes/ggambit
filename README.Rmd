@@ -8,7 +8,8 @@ output: github_document
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "man/figures/README-"
+  fig.path = "man/figures/README-",
+  dpi = 300
 )
 ```
 
@@ -19,7 +20,7 @@ knitr::opts_chunk$set(
 The aim of `ggambit` is to visualise Forsyth–Edwards Notation (FEN) chess positions in R using `ggplot2`. Simple annotations (such as arrows and circles) can also be added to the image by specifying standard chess square notation (e4, c5, etc...). As the plotting engine is `ggplot2`, any additional `ggplot2` layers may be added to the image, giving the user full creative control.
 
 ### Attribution
-Chess piece SVG design file from https://commons.wikimedia.org/wiki/File:Chess_Pieces_Sprite.svg
+Chess piece SVG design file downloaded from https://commons.wikimedia.org/wiki/File:Chess_Pieces_Sprite.svg
   
   * jurgenwesterhof (adapted from work of Cburnett), CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
 
