@@ -9,8 +9,8 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
-  dpi = 300
-)
+  out.width = "70%",
+  dpi = 300)
 ```
 
 # ggambit <img src="data-raw/hex-logo/ggambit-hex-logo.png" align="right" height="139"/>
@@ -25,7 +25,7 @@ Chess piece SVG design file downloaded from https://commons.wikimedia.org/wiki/F
   * jurgenwesterhof (adapted from work of Cburnett), CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
 
 ## Introduction
-`ggambit` can be installed from github by running
+`ggambit` can be installed from github
 ```{r eval=FALSE}
 remotes::install_github('cj-holmes/ggambit')
 ```

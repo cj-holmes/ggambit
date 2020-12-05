@@ -23,7 +23,7 @@ Chess piece SVG design file downloaded from
 
 ## Introduction
 
-`ggambit` can be installed from github by running
+`ggambit` can be installed from github
 
 ``` r
 remotes::install_github('cj-holmes/ggambit')
@@ -46,7 +46,7 @@ white’s perspective)
 plot_fen(sp)
 ```
 
-![](man/figures/README-unnamed-chunk-5-1.png)<!-- -->
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="70%" />
 
 Use `add_arrow()` and `highlight_squares()` to include simple
 annotations specified by chess board squares
@@ -57,7 +57,7 @@ plot_fen(sp) +
   highlight_squares(c("d5", "f5"))
 ```
 
-![](man/figures/README-unnamed-chunk-6-1.png)<!-- -->
+<img src="man/figures/README-unnamed-chunk-6-1.png" width="70%" />
 
 Change perspective with the `perspective` argument
 
@@ -67,7 +67,7 @@ plot_fen(sp, perspective = "b") +
   highlight_squares(c("d5", "f5"))
 ```
 
-![](man/figures/README-unnamed-chunk-7-1.png)<!-- -->
+<img src="man/figures/README-unnamed-chunk-7-1.png" width="70%" />
 
 A more interesting example
 
@@ -76,7 +76,7 @@ plot_fen("2k4r/pp3pp1/2p1bn1p/4N3/1b2PQ2/4KB2/Pq1r1PPP/R6R b - - 1 18")+
   add_arrow("b4", "c5")
 ```
 
-![](man/figures/README-unnamed-chunk-8-1.png)<!-- -->
+<img src="man/figures/README-unnamed-chunk-8-1.png" width="70%" />
 
 # Board customisation
 
@@ -86,7 +86,7 @@ An empty chess board can be plotted with `board()`
 board()
 ```
 
-![](man/figures/README-unnamed-chunk-9-1.png)<!-- -->
+<img src="man/figures/README-unnamed-chunk-9-1.png" width="70%" />
 
 Square fill colours can be specified with the `cols` argument to
 `board()`
@@ -95,4 +95,4 @@ Square fill colours can be specified with the `cols` argument to
 plot_fen(sp, cols=c("lightcoral", "ivory"))
 ```
 
-![](man/figures/README-unnamed-chunk-10-1.png)<!-- -->
+<img src="man/figures/README-unnamed-chunk-10-1.png" width="70%" />
