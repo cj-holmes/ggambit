@@ -96,3 +96,11 @@ plot_fen(sp, cols=c("lightcoral", "ivory"))
 ```
 
 <img src="man/figures/README-unnamed-chunk-10-1.png" width="70%" />
+
+Plot pieces
+
+``` r
+plot_pieces()
+```
+
+<img src="man/figures/README-unnamed-chunk-11-1.png" width="70%" />

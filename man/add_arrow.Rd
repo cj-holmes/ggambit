@@ -4,12 +4,14 @@
 \alias{add_arrow}
 \title{Add arrow to chess board visualisation}
 \usage{
-add_arrow(start, end, size = 1.5, col = "blue", ...)
+add_arrow(start, end, arrow_style = grid::arrow(), size = 1, col = "blue", ...)
 }
 \arguments{
 \item{start}{start square for arrow as character (example: "e2")}
 
 \item{end}{end square for arrow as character (example: "e4")}
+
+\item{arrow_style}{an arrow specified by \code{grid::arrow()}}
 
 \item{size}{arrow size (line width)}
 
