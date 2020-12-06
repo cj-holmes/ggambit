@@ -74,3 +74,9 @@ Square fill colours can be specified with the `cols` argument to `board()`
 ```{r}
 plot_fen(sp, cols=c("lightcoral", "ivory"))
 ```
+
+Plot pieces
+```{r}
+plot_pieces()
+```
+
