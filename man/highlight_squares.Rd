@@ -7,7 +7,7 @@
 highlight_squares(
   squares,
   col = "red",
-  size = 1.5,
+  size = 1,
   fill = NA,
   res = 50,
   d = 0.45,

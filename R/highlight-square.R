@@ -8,7 +8,7 @@
 #'
 #' @return A ggplot2 geom_polygon() layer
 #' @export
-highlight_squares <- function(squares, col="red", size=1.5, fill=NA, res=50, d=0.45, ...){
+highlight_squares <- function(squares, col="red", size=1, fill=NA, res=50, d=0.45, ...){
 
   circle <-
     tibble::tibble(x = d*cos(seq(0, 2*pi, l=res)),
