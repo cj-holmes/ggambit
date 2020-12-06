@@ -16,7 +16,17 @@ plot_fen(
 
 \item{perspective}{view board from white "w" or black "b" perspective (default = "w")}
 
-\item{cols}{Length 2 vector giving colours of dark and light squares (default = c("#b58863ff", "#f0d9b5ff"))}
+\item{cols}{A single character colour theme listed below or a length 2 vector of colours ordered dark, light (default = "brown")
+\itemize{
+  \item "brown"
+  \item "blue"
+  \item "blue2"
+  \item "green"
+  \item "grey"
+  \item "pink"
+  \item "purple"
+  \item "ic"
+  }}
 
 \item{piece_scale}{scaling factor for piece sizes (default = 0.75)}
 }

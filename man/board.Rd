@@ -4,19 +4,26 @@
 \alias{board}
 \title{Plot an empty chess board}
 \usage{
-board(perspective = "w", cols = c("#b58863ff", "#f0d9b5ff"))
+board(perspective = "w", cols = "brown")
 }
 \arguments{
 \item{perspective}{should the board be viewed from the white side or black side. One of "w" or "b" (default = "w")}
 
-\item{cols}{Length 2 vector giving colours of dark and light squares (default = c("#b58863ff", "#f0d9b5ff"))}
+\item{cols}{A single character colour theme listed below or a length 2 vector of colours ordered dark, light (default = "brown")
+\itemize{
+  \item "brown"
+  \item "blue"
+  \item "blue2"
+  \item "green"
+  \item "grey"
+  \item "pink"
+  \item "purple"
+  \item "ic"
+  }}
 }
 \value{
 A ggplot2 object
 }
 \description{
 Plot an empty chess board
-}
-\examples{
-board()
 }

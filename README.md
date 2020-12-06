@@ -92,15 +92,7 @@ Square fill colours can be specified with the `cols` argument to
 `board()`
 
 ``` r
-plot_fen(sp, cols=c("lightcoral", "ivory"))
+plot_fen(sp, cols="green")
 ```
 
 <img src="man/figures/README-unnamed-chunk-10-1.png" width="70%" />
-
-Plot pieces
-
-``` r
-plot_pieces()
-```
-
-<img src="man/figures/README-unnamed-chunk-11-1.png" width="70%" />
