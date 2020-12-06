@@ -5,14 +5,14 @@
 \title{Visualise a FEN}
 \usage{
 plot_fen(
-  fen,
+  fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
   perspective = "w",
   cols = c("#b58863ff", "#f0d9b5ff"),
   piece_scale = 0.85
 )
 }
 \arguments{
-\item{fen}{a character vector FEN of length one}
+\item{fen}{a character vector FEN of length one (defaults to the opening position)}
 
 \item{perspective}{view board from white "w" or black "b" perspective (default = "w")}
 
@@ -25,6 +25,11 @@ A ggplot2 plot object
 }
 \description{
 Visualise a FEN
+}
+\details{
+Chess piece SVG design file downloaded from https://commons.wikimedia.org/wiki/File:Chess_Pieces_Sprite.svg
+
+ jurgenwesterhof (adapted from work of Cburnett), CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
 }
 \examples{
 plot_fen('Q1b2rk1/p1p2p1p/6Bp/2b5/8/2P5/P1P2PPP/R4RK1 b - - 0 16')
