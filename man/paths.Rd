@@ -11,6 +11,10 @@ A dataframe of chess piece polygon coordinates
 paths
 }
 \description{
+<<<<<<< HEAD
 Not intended for use by the user
+=======
+Not inteded for use by the user
+>>>>>>> dbbe9d4c4998b90156fc0532bed8bc90d56fb35f
 }
 \keyword{datasets}
