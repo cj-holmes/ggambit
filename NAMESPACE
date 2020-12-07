@@ -3,6 +3,7 @@
 export("%>%")
 export(add_arrow)
 export(board)
+export(fade_board)
 export(fen_to_df)
 export(highlight_squares)
 export(parse_fen)
