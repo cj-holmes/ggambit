@@ -4,7 +4,7 @@
 \alias{board}
 \title{Plot an empty chess board}
 \usage{
-board(perspective = "w", cols = "brown")
+board(perspective = "w", cols = "brown", show_coords = TRUE)
 }
 \arguments{
 \item{perspective}{should the board be viewed from the white side or black side. One of "w" or "b" (default = "w")}
@@ -20,6 +20,8 @@ board(perspective = "w", cols = "brown")
   \item "purple"
   \item "ic"
   }}
+
+\item{show_coords}{logical - should the board coordinates be printed?}
 }
 \value{
 A ggplot2 object

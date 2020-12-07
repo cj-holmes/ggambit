@@ -7,8 +7,10 @@
 plot_fen(
   fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
   perspective = "w",
-  cols = c("#b58863ff", "#f0d9b5ff"),
-  piece_scale = 0.85
+  cols = "brown",
+  piece_scale = 0.85,
+  show_coords = TRUE,
+  show_fen = TRUE
 )
 }
 \arguments{
@@ -28,7 +30,11 @@ plot_fen(
   \item "ic"
   }}
 
-\item{piece_scale}{scaling factor for piece sizes (default = 0.75)}
+\item{piece_scale}{scaling factor for piece sizes (default = 0.85)}
+
+\item{show_coords}{logical - should the board coordinates be printed?}
+
+\item{show_fen}{logical - should the FEN be printed in the plot caption}
 }
 \value{
 A ggplot2 plot object

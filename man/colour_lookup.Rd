@@ -6,11 +6,17 @@
 \title{A list of dark and light square colour options}
 \format{
 A named list of dark and light square colours
+
+A named list of dark and light square colours
 }
 \usage{
 colour_lookup
+
+colour_lookup
 }
 \description{
-A list of dark and light square colour options
+Not inteded for use by the user
+
+Not inteded for use by the user
 }
 \keyword{datasets}
