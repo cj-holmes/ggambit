@@ -12,17 +12,20 @@
 #'   \item "purple"
 #'   \item "ic"
 #'   }
+#' @param show_coords logical - should the board coordinates be printed?
 #'
 #' @return A ggplot2 object
 #' @export
-board <- function(perspective = "w", cols = "brown"){
+board <- function(perspective = "w", cols = "brown", show_coords = TRUE){
 
   # If cols is passed as a length one string, pick the colours from the lookup list
-  if(length(cols) == 1){
+  if(length(cols) == 1 && (cols %in% names(colour_lookup))){
     sq_cols <- colour_lookup[[cols]]
-  } else {
+  } else if(length(cols) == 2){
     # Else use the colours as provided
     sq_cols <- cols
+  } else {
+    stop("'cols' must be provided as a single colour specification (see documentation) or a length 2 vector of dark and light square colours")
   }
 
   # Create a dataframe for the geom_tile() chessboard
@@ -41,23 +44,31 @@ board <- function(perspective = "w", cols = "brown"){
                       x=squares$x[!squares$black],
                       y=squares$y[!squares$black],
                       height=1, width=1, fill=sq_cols[2])+
+    ggplot2::coord_fixed()+
     ggplot2::theme_minimal()+
-    ggplot2::theme(panel.grid = ggplot2::element_blank(),
-                   plot.caption = ggplot2::element_text(colour = sq_cols[1]))
+    ggplot2::theme(plot.caption = ggplot2::element_text(colour = sq_cols[1]))
 
-  # Ammend the base plot based on perspective chosen
+  # Ammend the background plot based on perspective chosen
   if(perspective == "w"){
-    b +
-      ggplot2::scale_y_continuous("", breaks=1:8, limits=c(0, 9), expand = ggplot2::expansion(add=0.05))+
-      ggplot2::scale_x_continuous("", breaks=1:8, labels = letters[1:8], limits=c(0, 9), expand = ggplot2::expansion(add=0.05))+
-      ggplot2::coord_fixed(xlim=c(0.5, 8.5), ylim=c(0.5,8.5))
+    b <-
+      b +
+      ggplot2::scale_y_continuous("", breaks=1:8, limits=c(0.5, 8.5), expand = ggplot2::expansion(add=0, mult = 0))+
+      ggplot2::scale_x_continuous("", breaks=1:8, labels = letters[1:8], limits=c(0.5, 8.5), expand = ggplot2::expansion(add=0))
 
   } else if(perspective == "b"){
-    b +
-      ggplot2::scale_y_reverse("", breaks=1:8, limits=c(9, 0), expand = ggplot2::expansion(add=0.05))+
-      ggplot2::scale_x_reverse("", breaks=1:8, labels = letters[1:8], limits=c(9, 0), expand = ggplot2::expansion(add=0.05))+
-      ggplot2::coord_fixed(xlim=c(8.5, 0.5), ylim=c(8.5, 0.5))
+    b <-
+      b +
+      ggplot2::scale_y_reverse("", breaks=1:8, limits=c(8.5, 0.5), expand = ggplot2::expansion(add=0))+
+      ggplot2::scale_x_reverse("", breaks=1:8, labels = letters[1:8], limits=c(8.5, 0.5), expand = ggplot2::expansion(add=0))
+
   } else {
-      stop("Perspective must be 'w' or 'b'")
-    }
+    stop("Perspective must be 'w' or 'b'")
+  }
+
+  if(!show_coords){
+    b <- b + ggplot2::theme(axis.text = ggplot2::element_blank())
+  }
+
+  b
+
 }

@@ -3,14 +3,15 @@
 
 # ggambit <img src="data-raw/hex-logo/ggambit-hex-logo.png" align="right" height="139"/>
 
-## A work in progress
+## A work in progress - please log any bugs found
 
 The aim of `ggambit` is to visualise Forsyth–Edwards Notation (FEN)
 chess positions in R using `ggplot2`. Simple annotations (such as arrows
 and circles) can also be added to the image by specifying standard chess
-square notation (e4, c5, etc…). As the plotting engine is `ggplot2`, any
-additional `ggplot2` layers may be added to the image, giving the user
-full creative control.
+square notation (e4, c5, etc…).
+
+As the plotting engine is `ggplot2`, any additional `ggplot2` layers may
+be added to the image, giving the user full creative control.
 
 ### Attribution
 
@@ -33,47 +34,40 @@ remotes::install_github('cj-holmes/ggambit')
 library(ggambit)
 ```
 
-Define the starting position FEN
-
-``` r
-sp <- "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
-```
-
 Visualise the FEN starting position using the default settings (from
 white’s perspective)
 
 ``` r
-plot_fen(sp)
+plot_fen()
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-1.png" width="70%" />
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="70%" />
 
 Use `add_arrow()` and `highlight_squares()` to include simple
 annotations specified by chess board squares
 
 ``` r
-plot_fen(sp) + 
-  add_arrow("e2", "e4")+
-  highlight_squares(c("d5", "f5"))
+plot_fen() + add_arrow("e2", "e4") + highlight_squares(c("d5", "f5"))
 ```
 
-<img src="man/figures/README-unnamed-chunk-6-1.png" width="70%" />
-
-Change perspective with the `perspective` argument
-
-``` r
-plot_fen(sp, perspective = "b") + 
-  add_arrow("e2", "e4")+
-  highlight_squares(c("d5", "f5"))
-```
-
-<img src="man/figures/README-unnamed-chunk-7-1.png" width="70%" />
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="70%" />
 
 A more interesting example
 
 ``` r
-plot_fen("2k4r/pp3pp1/2p1bn1p/4N3/1b2PQ2/4KB2/Pq1r1PPP/R6R b - - 1 18")+
-  add_arrow("b4", "c5")
+my_fen <- "2k4r/pp3pp1/2p1bn1p/4N3/1b2PQ2/4KB2/Pq1r1PPP/R6R b - - 1 18"
+```
+
+``` r
+plot_fen(my_fen) + add_arrow("b4", "c5") + highlight_squares("e3")
+```
+
+<img src="man/figures/README-unnamed-chunk-7-1.png" width="70%" />
+
+Change perspective with the `perspective` argument
+
+``` r
+plot_fen(my_fen, perspective = "b") + add_arrow("b4", "c5") + highlight_squares("e3")
 ```
 
 <img src="man/figures/README-unnamed-chunk-8-1.png" width="70%" />
@@ -92,7 +86,16 @@ Square fill colours can be specified with the `cols` argument to
 `board()`
 
 ``` r
-plot_fen(sp, cols="green")
+plot_fen(cols = "blue")
 ```
 
 <img src="man/figures/README-unnamed-chunk-10-1.png" width="70%" />
+
+Remove/add FEN notation caption and board coordinates with the
+`show_coords` and `show_fen` arguments to `plot_fen()`
+
+``` r
+plot_fen(cols = "grey", show_coords = FALSE, show_fen = FALSE)
+```
+
+<img src="man/figures/README-unnamed-chunk-11-1.png" width="70%" />

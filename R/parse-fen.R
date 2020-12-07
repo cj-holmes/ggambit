@@ -29,22 +29,10 @@ parse_fen <- function(fen){
 #' fen_to_df("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
 fen_to_df <- function(fen){
 
-  # Extract pieces section from the FEN
+  # Extract pieces section from the FEN and replace them with their notation_lookup value
+  # Then create a vector of letters (should always be length 64)
   pieces_vector <-
-    parse_fen(fen)['pieces'] %>%
-    # Remove all "/", split into individual characters and store in a df
-    stringr::str_remove_all("/") %>%
-    stringr::str_split("") %>%
-    unlist() %>%
-    tibble::tibble(raw = .) %>%
-    # Find the elements that are integers (the unoccupied squares on the chess board)
-    dplyr::mutate(numeric = strtoi(raw)) %>%
-    # Replace the integers with the integer value of empty spaces
-    dplyr::transmute(r = purrr::map2_chr(raw, numeric,
-                                         function(x,y){
-                                           if(is.na(y)){x} else {stringr::str_flatten(rep(" ", y))}
-                                         })) %>%
-    dplyr::pull(r) %>%
+    notation_lookup[stringr::str_split(parse_fen(fen)['pieces'], "")[[1]]] %>%
     stringr::str_flatten() %>%
     stringr::str_split("") %>%
     unlist()
@@ -53,7 +41,6 @@ fen_to_df <- function(fen){
   # Add the pieces vactor, flag if a piece is white
   expand.grid(x=1:8, y=8:1) %>%
     dplyr::mutate(p = pieces_vector) %>%
-    dplyr::filter(p != " ") %>%
-    dplyr::mutate(is_white = stringr::str_detect(p, "^[:upper:]+$"))
+    dplyr::filter(p != " ")
 
 }
