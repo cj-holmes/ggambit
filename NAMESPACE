@@ -2,7 +2,8 @@
 
 export("%>%")
 export(add_arrow)
-export(board)
+export(add_box)
+export(add_piece)
 export(fade_board)
 export(fen_to_df)
 export(highlight_squares)
