@@ -10,7 +10,7 @@ plot_fen(
   cols = "brown",
   piece_scale = 0.85,
   show_coords = TRUE,
-  show_fen = TRUE
+  show_fen = FALSE
 )
 }
 \arguments{
@@ -32,9 +32,9 @@ plot_fen(
 
 \item{piece_scale}{scaling factor for piece sizes (default = 0.85)}
 
-\item{show_coords}{logical - should the board coordinates be printed?}
+\item{show_coords}{logical - should the board coordinates be printed? (default = TRUE)}
 
-\item{show_fen}{logical - should the FEN be printed in the plot caption}
+\item{show_fen}{logical - should the FEN be printed in the plot caption? (default = FALSE)}
 }
 \value{
 A ggplot2 plot object
@@ -48,5 +48,9 @@ Chess piece SVG design file downloaded from https://commons.wikimedia.org/wiki/F
  jurgenwesterhof (adapted from work of Cburnett), CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
 }
 \examples{
+# Plot the starting position
 plot_fen('Q1b2rk1/p1p2p1p/6Bp/2b5/8/2P5/P1P2PPP/R4RK1 b - - 0 16')
+
+# Plot an empty board
+plot_fen("8/8/8/8/8/8/8/8 w KQkq - 0 1")
 }
