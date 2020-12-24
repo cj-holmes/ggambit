@@ -10,7 +10,8 @@ plot_fen(
   cols = "brown",
   piece_scale = 0.85,
   show_coords = TRUE,
-  show_fen = FALSE
+  show_fen = FALSE,
+  newspaper_spacing = 0.08
 )
 }
 \arguments{
@@ -28,6 +29,7 @@ plot_fen(
   \item "pink"
   \item "purple"
   \item "ic"
+  \item "news"
   }}
 
 \item{piece_scale}{scaling factor for piece sizes (default = 0.85)}
@@ -35,6 +37,8 @@ plot_fen(
 \item{show_coords}{logical - should the board coordinates be printed? (default = TRUE)}
 
 \item{show_fen}{logical - should the FEN be printed in the plot caption? (default = FALSE)}
+
+\item{newspaper_spacing}{spacing for shading lines if \code{cols = "news"}}
 }
 \value{
 A ggplot2 plot object

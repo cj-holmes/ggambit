@@ -71,9 +71,10 @@ An empty chess board can be plotted by supplying the following FEN
 plot_fen("8/8/8/8/8/8/8/8 w KQkq - 0 1")
 ```
 
-Square fill colours can be specified with the `cols` argument. See `plot_fen()` documentation for more details
+Square fill colours can be specified with the `cols` argument. See `plot_fen()` documentation for more details. An attempt at newspaper style can be set using `cols = "news"`
 ```{r}
-plot_fen(cols = "blue")
+plot_fen(cols = "green")
+plot_fen(cols = "news")
 ```
 
 Remove/add FEN notation caption and board coordinates with the `show_coords` and `show_fen` arguments to `plot_fen()`

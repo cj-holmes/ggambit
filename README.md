@@ -106,13 +106,20 @@ plot_fen("8/8/8/8/8/8/8/8 w KQkq - 0 1")
 <img src="man/figures/README-unnamed-chunk-9-1.png" width="70%" />
 
 Square fill colours can be specified with the `cols` argument. See
-`plot_fen()` documentation for more details
+`plot_fen()` documentation for more details. An attempt at newspaper
+style can be set using `cols = "news"`
 
 ``` r
-plot_fen(cols = "blue")
+plot_fen(cols = "green")
 ```
 
 <img src="man/figures/README-unnamed-chunk-10-1.png" width="70%" />
+
+``` r
+plot_fen(cols = "news")
+```
+
+<img src="man/figures/README-unnamed-chunk-10-2.png" width="70%" />
 
 Remove/add FEN notation caption and board coordinates with the
 `show_coords` and `show_fen` arguments to `plot_fen()`
