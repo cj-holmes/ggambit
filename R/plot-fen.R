@@ -12,10 +12,12 @@
 #'   \item "pink"
 #'   \item "purple"
 #'   \item "ic"
+#'   \item "news"
 #'   }
 #' @param piece_scale scaling factor for piece sizes (default = 0.85)
 #' @param show_coords logical - should the board coordinates be printed? (default = TRUE)
 #' @param show_fen logical - should the FEN be printed in the plot caption? (default = FALSE)
+#' @param newspaper_spacing spacing for shading lines if \code{cols = "news"}
 #'
 #' @details Chess piece SVG design file downloaded from https://commons.wikimedia.org/wiki/File:Chess_Pieces_Sprite.svg
 #'
@@ -36,7 +38,8 @@ plot_fen <- function(fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -
                      cols = "brown",
                      piece_scale = 0.85,
                      show_coords = TRUE,
-                     show_fen = FALSE){
+                     show_fen = FALSE,
+                     newspaper_spacing = 0.08){
 
 
   # Create dataframe of pieces from FEN -------------------------------------
@@ -63,7 +66,7 @@ plot_fen <- function(fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -
     # Else use the colours as provided
     sq_cols <- cols
   } else {
-    colour_lookup[["brown"]]
+    sq_cols <- colour_lookup[["brown"]]
   }
 
 
@@ -74,18 +77,51 @@ plot_fen <- function(fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -
     dplyr::mutate(black = rep(c(rep(c(T,F), 4), rep(c(F,T), 4)), 4))
 
   # Create the background board plot layer
-  b <-
-    ggplot2::ggplot()+
-    ggplot2::annotate(geom="tile",
-                      x=squares$x[squares$black],
-                      y=squares$y[squares$black],
-                      height=1, width=1, fill=sq_cols[1])+
-    ggplot2::annotate(geom="tile",
-                      x=squares$x[!squares$black],
-                      y=squares$y[!squares$black],
-                      height=1, width=1, fill=sq_cols[2])+
-    ggplot2::coord_fixed()+
-    ggplot2::theme_minimal()
+  if(cols == "news"){
+    # If newspaper style
+
+    line_coords <- seq(0.5, 8.5, by=newspaper_spacing)
+
+    b <-
+      tibble::tibble(x_start = 0.5, y_start = line_coords,
+                     x_end = rev(line_coords), y_end = 8.5) %>%
+      dplyr::bind_rows(tibble::tibble(x_start = line_coords, y_start = 0.5,
+                                      x_end = 8.5, y_end = rev(line_coords))) %>%
+      dplyr::mutate(rn = dplyr::row_number()) %>%
+      ggplot2::ggplot()+
+      ggplot2::geom_segment(ggplot2::aes(x=x_start, y=y_start, xend=x_end, yend=y_end, group = rn),
+                            size=0.2)+
+      ggplot2::annotate(geom="tile",
+                        x=squares$x[squares$black],
+                        y=squares$y[squares$black],
+                        height=1, width=1, fill="white")+
+      # Bottom
+      ggplot2::annotate("rect", xmin = 0.5, xmax = 8.5, ymin=-Inf, ymax = 0.5, col="white", fill=NA)+
+      # Top
+      ggplot2::annotate("rect", xmin = 0.5, xmax = 8.5, ymin=8.5, ymax = Inf, col="white", fill=NA)+
+      # Right
+      ggplot2::annotate("rect", xmin = 8.5, xmax = Inf, ymin=0.5, ymax = 8.5, col="white", fill=NA)+
+      # Left
+      ggplot2::annotate("rect", xmin = -Inf, xmax = 0.5, ymin=0.5, ymax = 8.5, col="white", fill=NA)+
+      ggplot2::coord_fixed()+
+      ggplot2::theme_minimal()+
+      ggplot2::theme(panel.grid = ggplot2::element_blank())
+
+  } else {
+
+    b <-
+      ggplot2::ggplot()+
+      ggplot2::annotate(geom="tile",
+                        x=squares$x[squares$black],
+                        y=squares$y[squares$black],
+                        height=1, width=1, fill=sq_cols[1])+
+      ggplot2::annotate(geom="tile",
+                        x=squares$x[!squares$black],
+                        y=squares$y[!squares$black],
+                        height=1, width=1, fill=sq_cols[2])+
+      ggplot2::coord_fixed()+
+      ggplot2::theme_minimal()
+  }
 
   # Ammend coordinate system based on the perspective chosen
   if(perspective == "b"){
