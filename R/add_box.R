@@ -18,10 +18,10 @@
 #'   add_box("g3", "h6", fill="green", alpha=1/2, col="black", linetype="solid")
 add_box <- function(bottom_left, top_right, size = 1.5, linetype = "dashed", fill = NA, col = "red", ...){
 
-  lu <- setNames(1:8, letters[1:8])
 
-  ggplot2::geom_rect(ggplot2::aes(xmin = lu[substr(bottom_left, 1, 1)] - 0.5,
-                                  xmax = lu[substr(top_right, 1, 1)] + 0.5,
+
+  ggplot2::geom_rect(ggplot2::aes(xmin = square_lookup[substr(bottom_left, 1, 1)] - 0.5,
+                                  xmax = square_lookup[substr(top_right, 1, 1)] + 0.5,
                                   ymin = as.integer(substr(bottom_left, 2, 2)) - 0.5,
                                   ymax = as.integer(substr(top_right, 2, 2)) + 0.5),
                      size = size,

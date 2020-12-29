@@ -14,12 +14,10 @@ highlight_squares <- function(squares, col="red", size=1.5, fill=NA, res=50, d=0
     tibble::tibble(x = d*cos(seq(0, 2*pi, l=res)),
                    y = d*sin(seq(0, 2*pi, l=res)))
 
-  lu <- setNames(1:8, letters[1:8])
-
   purrr::map(squares, function(s){
     da <-
       circle %>%
-      dplyr::mutate(x = x + lu[substr(s, 1, 1)],
+      dplyr::mutate(x = x + square_lookup[substr(s, 1, 1)],
                     y = y + as.integer(substr(s, 2, 2)))
 
     ggplot2::geom_polygon(data = da, ggplot2::aes(x=x, y=y),

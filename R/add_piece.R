@@ -15,9 +15,7 @@
 #'   add_piece("B", "h8")
 add_piece <- function(piece, square, perspective = "w", piece_scale = 0.85){
 
-  lu <- setNames(1:8, letters[1:8])
-
-  x <- lu[substr(square, 1, 1)]
+  x <- square_lookup[substr(square, 1, 1)]
   y <- substr(square, 2, 2) %>% as.integer()
 
   ggplot2::geom_polygon(data =
