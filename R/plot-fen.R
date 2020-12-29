@@ -77,7 +77,7 @@ plot_fen <- function(fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -
     dplyr::mutate(black = rep(c(rep(c(T,F), 4), rep(c(F,T), 4)), 4))
 
   # Create the background board plot layer
-  if(cols == "news"){
+  if(length(cols) == 1 && cols == "news"){
     # If newspaper style
 
     line_coords <- seq(0.5, 8.5, by=newspaper_spacing)
