@@ -2,7 +2,7 @@
 #'
 #' @param fen a character vector FEN of length one (defaults to the opening position)
 #' @param perspective view board from white "w" or black "b" perspective (default = "w")
-#' @param cols A single character colour theme listed below or a length 2 vector of colours ordered dark, light (default = "brown")
+#' @param palette A single character colour theme listed below or a length 2 vector of colours ordered dark, light (default = "brown")
 #' \itemize{
 #'   \item "brown"
 #'   \item "blue"
@@ -17,7 +17,9 @@
 #' @param piece_scale scaling factor for piece sizes (default = 0.85)
 #' @param show_coords logical - should the board coordinates be printed? (default = TRUE)
 #' @param show_fen logical - should the FEN be printed in the plot caption? (default = FALSE)
-#' @param newspaper_spacing spacing for shading lines if \code{cols = "news"}
+#' @param newspaper_spacing spacing for shading lines if \code{palette = "news"}
+#' @param border_col Chess board border colour (default = NA (no border))
+#' @param border_size Chess board border size (default = 0.5)
 #'
 #' @details Chess piece SVG design file downloaded from https://commons.wikimedia.org/wiki/File:Chess_Pieces_Sprite.svg
 #'
@@ -35,11 +37,13 @@
 #' plot_fen("8/8/8/8/8/8/8/8 w KQkq - 0 1")
 plot_fen <- function(fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
                      perspective = "w",
-                     cols = "brown",
+                     palette = "brown",
                      piece_scale = 0.85,
                      show_coords = TRUE,
                      show_fen = FALSE,
-                     newspaper_spacing = 0.08){
+                     newspaper_spacing = 0.12,
+                     border_col = NA,
+                     border_size = 0.5){
 
 
   # Create dataframe of pieces from FEN -------------------------------------
@@ -48,7 +52,7 @@ plot_fen <- function(fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -
   # Pick inverted pieces if perspective == "b"
   piece_df <-
     fen_to_df(fen) %>%
-    dplyr::inner_join(paths, by=c("p" = "piece")) %>%
+    dplyr::inner_join(ggambit::paths, by=c("p" = "piece")) %>%
     dplyr::mutate(piece_x = dplyr::case_when(perspective == "w" ~ (xn * piece_scale) + x,
                                              perspective == "b" ~ (xni * piece_scale) + x,
                                              TRUE ~ (xn * piece_scale) + x),
@@ -59,14 +63,14 @@ plot_fen <- function(fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -
 
 
   # Get colours for board ---------------------------------------------------
-  # If cols is passed as a length one string, pick the colours from the lookup list
-  if(length(cols) == 1 && (cols %in% names(colour_lookup))){
-    sq_cols <- colour_lookup[[cols]]
-  } else if(length(cols) == 2){
+  # If palette is passed as a length one string, pick the colours from the lookup list
+  if(length(palette) == 1 && (palette %in% names(ggambit::colour_lookup))){
+    sq_cols <- ggambit::colour_lookup[[palette]]
+  } else if(length(palette) == 2){
     # Else use the colours as provided
-    sq_cols <- cols
+    sq_cols <- palette
   } else {
-    sq_cols <- colour_lookup[["brown"]]
+    sq_cols <- ggambit::colour_lookup[["brown"]]
   }
 
 
@@ -77,7 +81,7 @@ plot_fen <- function(fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -
     dplyr::mutate(black = rep(c(rep(c(T,F), 4), rep(c(F,T), 4)), 4))
 
   # Create the background board plot layer
-  if(length(cols) == 1 && cols == "news"){
+  if(length(palette) == 1 && palette == "news"){
     # If newspaper style
 
     line_coords <- seq(0.5, 8.5, by=newspaper_spacing)
@@ -90,7 +94,7 @@ plot_fen <- function(fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -
       dplyr::mutate(rn = dplyr::row_number()) %>%
       ggplot2::ggplot()+
       ggplot2::geom_segment(ggplot2::aes(x=x_start, y=y_start, xend=x_end, yend=y_end, group = rn),
-                            size=0.2)+
+                            size=0.5)+
       ggplot2::annotate(geom="tile",
                         x=squares$x[squares$black],
                         y=squares$y[squares$black],
@@ -105,7 +109,10 @@ plot_fen <- function(fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -
       ggplot2::annotate("rect", xmin = -Inf, xmax = 0.5, ymin=0.5, ymax = 8.5, col="white", fill=NA)+
       ggplot2::coord_fixed()+
       ggplot2::theme_minimal()+
-      ggplot2::theme(panel.grid = ggplot2::element_blank())
+      ggplot2::theme(panel.grid = ggplot2::element_blank(),
+                     panel.border = ggplot2::element_rect(fill = NA,
+                                                          colour = "black",
+                                                          size = 0.5))
 
   } else {
 
@@ -120,7 +127,11 @@ plot_fen <- function(fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -
                         y=squares$y[!squares$black],
                         height=1, width=1, fill=sq_cols[2])+
       ggplot2::coord_fixed()+
-      ggplot2::theme_minimal()
+      ggplot2::theme_minimal()+
+      ggplot2::theme(panel.grid = ggplot2::element_blank(),
+                     panel.border = ggplot2::element_rect(fill = NA,
+                                                          colour = border_col,
+                                                          size = border_size))
   }
 
   # Ammend coordinate system based on the perspective chosen
@@ -129,14 +140,14 @@ plot_fen <- function(fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -
       b +
       ggplot2::scale_y_reverse("", breaks=1:8, limits=c(8.5, 0.5),
                                expand = ggplot2::expansion(add=0))+
-      ggplot2::scale_x_reverse("", breaks=1:8, labels = letters[1:8],
+      ggplot2::scale_x_reverse("", breaks=1:8, labels = LETTERS[1:8],
                                limits=c(8.5, 0.5), expand = ggplot2::expansion(add=0))
   } else {
     b <-
       b +
       ggplot2::scale_y_continuous("", breaks=1:8, limits=c(0.5, 8.5),
                                   expand = ggplot2::expansion(add=0, mult = 0))+
-      ggplot2::scale_x_continuous("", breaks=1:8, labels = letters[1:8],
+      ggplot2::scale_x_continuous("", breaks=1:8, labels = LETTERS[1:8],
                                   limits=c(0.5, 8.5), expand = ggplot2::expansion(add=0))
   }
 
