@@ -7,7 +7,7 @@
 #' @return A ggplot2 object
 #' @export
 plot_pieces <- function(){
-  paths %>%
+  ggambit::paths %>%
     ggplot2::ggplot(ggplot2::aes(xn, yn))+
     ggplot2::geom_polygon(ggplot2::aes(fill=fill, group=as.factor(id)))+
     ggplot2::facet_wrap(~piece)+

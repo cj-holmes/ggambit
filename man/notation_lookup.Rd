@@ -5,7 +5,7 @@
 \alias{notation_lookup}
 \title{A named vector for help when parsing FEN strings}
 \format{
-A named list of dark and light square colours
+A named vector
 }
 \usage{
 notation_lookup

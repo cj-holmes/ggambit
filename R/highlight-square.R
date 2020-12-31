@@ -17,7 +17,7 @@ highlight_squares <- function(squares, col="red", size=1.5, fill=NA, res=50, d=0
   purrr::map(squares, function(s){
     da <-
       circle %>%
-      dplyr::mutate(x = x + square_lookup[substr(s, 1, 1)],
+      dplyr::mutate(x = x + ggambit::square_lookup[substr(s, 1, 1)],
                     y = y + as.integer(substr(s, 2, 2)))
 
     ggplot2::geom_polygon(data = da, ggplot2::aes(x=x, y=y),

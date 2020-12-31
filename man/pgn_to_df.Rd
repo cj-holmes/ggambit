@@ -2,24 +2,23 @@
 % Please edit documentation in R/pgn_to_df.R
 \name{pgn_to_df}
 \alias{pgn_to_df}
-\title{Convert a PGN file to a dataframe}
+\title{Parse PGN text into a dataframe EXPERIMENTAL}
 \usage{
 pgn_to_df(pgn, pgn_tags = "seven")
 }
 \arguments{
-\item{pgn}{A raw (un-annotated) PGN text file}
+\item{pgn}{A raw (un-annotated) PGN text file (can contain multiple PGNs)}
 
-\item{pgn_tags}{PGN tags wanted in the output dataframe. One of
+\item{pgn_tags}{one of
 \itemize{
   \item "seven" - The 'Seven tag roster' (default)
-  \item "all_present" - ALl tags found in the PGN file
-  \item "all" - All known tags (experimental)
+  \item "all_present" - All tags found in the PGN file
   }}
 }
 \value{
-
+A list containing dataframes of each game found in the PGN text file
 }
 \description{
-This is experimental. It will not work for annotated PGN files.
-http://www.saremba.de/chessgml/standards/pgn/pgn-complete.htm#c8.1.1
+This is an \bold{experimental} function that attempts to parse raw (un-annotated) Portable Game Notation (PGN) files into a dataframe. It is
+  also very \bold{slow}
 }

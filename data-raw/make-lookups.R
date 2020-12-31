@@ -1,3 +1,5 @@
+library(tidyverse)
+
 # Generate a lookup of colours for the chess board
 colour_lookup <-
   list(brown = c("#b58863ff", "#f0d9b5ff"),
@@ -35,20 +37,14 @@ notation_lookup <-
     "/" = ""
     )
 
+# A lookup to convert file letters to numbers for plotting
 square_lookup <- setNames(1:8, letters[1:8])
 
-# seven tag roster
+# Seven tag roster
 seven_tag_roster <- c("Event", "Site", "Date", "Round", "White", "Black", "Result") %>% tibble::tibble(tag = .)
-
-# A lookup of all known common tags
-all_tags <-
-  tibble(tag = c("Event", "Site", "Date", "Round", "White", "Black", "Result",
-                 "Annotator", "PlyCount", "TimeControl", "Time", "Termination", "Mode", "FEN",
-                 "UTCDate", "UTCTime", "WhiteElo", "BlackElo", "Variant", "ECO", "Opening"))
 
 usethis::use_data(colour_lookup,
                   notation_lookup,
                   square_lookup,
                   seven_tag_roster,
-                  all_tags,
                   overwrite = TRUE)

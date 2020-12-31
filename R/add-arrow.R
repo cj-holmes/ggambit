@@ -12,9 +12,9 @@
 #' @export
 add_arrow <- function(start, end, arrow_style = grid::arrow(), size = 1.5, col = "blue", ...){
 
-  ggplot2::geom_segment(ggplot2::aes(x = square_lookup[substr(start, 1, 1)],
+  ggplot2::geom_segment(ggplot2::aes(x = ggambit::square_lookup[substr(start, 1, 1)],
                                      y = as.integer(substr(start, 2, 2)),
-                                     xend = square_lookup[substr(end, 1, 1)],
+                                     xend = ggambit::square_lookup[substr(end, 1, 1)],
                                      yend = as.integer(substr(end, 2, 2))),
                         arrow = arrow_style,
                         size = size,
