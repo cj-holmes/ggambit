@@ -8,10 +8,11 @@ plot_fen(
   fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
   perspective = "w",
   palette = "brown",
-  piece_scale = 0.85,
+  piece_scale = 0.825,
   show_coords = TRUE,
   show_fen = FALSE,
-  newspaper_spacing = 0.12,
+  news_spacing = 0.12,
+  news_thickness = 0.5,
   border_col = NA,
   border_size = 0.5
 )
@@ -34,13 +35,15 @@ plot_fen(
   \item "news"
   }}
 
-\item{piece_scale}{scaling factor for piece sizes (default = 0.85)}
+\item{piece_scale}{scaling factor for piece sizes (default = 0.825)}
 
 \item{show_coords}{logical - should the board coordinates be printed? (default = TRUE)}
 
 \item{show_fen}{logical - should the FEN be printed in the plot caption? (default = FALSE)}
 
-\item{newspaper_spacing}{spacing for shading lines if \code{palette = "news"}}
+\item{news_spacing}{spacing of shading lines if \code{palette = "news"} (default = 0.12)}
+
+\item{news_thickness}{thickness of shading lines if \code{palette = "news"} (default = 0.5)}
 
 \item{border_col}{Chess board border colour (default = NA (no border))}
 

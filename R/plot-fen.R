@@ -14,10 +14,11 @@
 #'   \item "ic"
 #'   \item "news"
 #'   }
-#' @param piece_scale scaling factor for piece sizes (default = 0.85)
+#' @param piece_scale scaling factor for piece sizes (default = 0.825)
 #' @param show_coords logical - should the board coordinates be printed? (default = TRUE)
 #' @param show_fen logical - should the FEN be printed in the plot caption? (default = FALSE)
-#' @param newspaper_spacing spacing for shading lines if \code{palette = "news"}
+#' @param news_spacing spacing of shading lines if \code{palette = "news"} (default = 0.12)
+#' @param news_thickness thickness of shading lines if \code{palette = "news"} (default = 0.5)
 #' @param border_col Chess board border colour (default = NA (no border))
 #' @param border_size Chess board border size (default = 0.5)
 #'
@@ -38,10 +39,11 @@
 plot_fen <- function(fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
                      perspective = "w",
                      palette = "brown",
-                     piece_scale = 0.85,
+                     piece_scale = 0.825,
                      show_coords = TRUE,
                      show_fen = FALSE,
-                     newspaper_spacing = 0.12,
+                     news_spacing = 0.12,
+                     news_thickness = 0.5,
                      border_col = NA,
                      border_size = 0.5){
 
@@ -84,7 +86,7 @@ plot_fen <- function(fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -
   if(length(palette) == 1 && palette == "news"){
     # If newspaper style
 
-    line_coords <- seq(0.5, 8.5, by=newspaper_spacing)
+    line_coords <- seq(0.5, 8.5, by=news_spacing)
 
     b <-
       tibble::tibble(x_start = 0.5, y_start = line_coords,
@@ -94,7 +96,7 @@ plot_fen <- function(fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -
       dplyr::mutate(rn = dplyr::row_number()) %>%
       ggplot2::ggplot()+
       ggplot2::geom_segment(ggplot2::aes(x=x_start, y=y_start, xend=x_end, yend=y_end, group = rn),
-                            size=0.5)+
+                            size=news_thickness)+
       ggplot2::annotate(geom="tile",
                         x=squares$x[squares$black],
                         y=squares$y[squares$black],

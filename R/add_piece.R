@@ -3,7 +3,7 @@
 #' @param piece piece symbol in FEN notation ("P" = white pawn etc...)
 #' @param square Square to draw piece on
 #' @param perspective Board perspective for the added piece (needs to be set to the same as persepctive used with \code{plot_fen()})
-#' @param piece_scale Piece scaling factor (default = 0.85)
+#' @param piece_scale Piece scaling factor (default = 0.825)
 #'
 #' @return
 #' @export
@@ -13,7 +13,7 @@
 #' plot_fen("8/8/8/8/8/8/8/8 w KQkq - 0 1") +
 #'   add_piece("q", "c3") +
 #'   add_piece("B", "h8")
-add_piece <- function(piece, square, perspective = "w", piece_scale = 0.85){
+add_piece <- function(piece, square, perspective = "w", piece_scale = 0.825){
 
   x <- ggambit::square_lookup[substr(square, 1, 1)]
   y <- substr(square, 2, 2) %>% as.integer()

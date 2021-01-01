@@ -4,7 +4,7 @@
 \alias{add_piece}
 \title{Add a piece to the current plot}
 \usage{
-add_piece(piece, square, perspective = "w", piece_scale = 0.85)
+add_piece(piece, square, perspective = "w", piece_scale = 0.825)
 }
 \arguments{
 \item{piece}{piece symbol in FEN notation ("P" = white pawn etc...)}
@@ -13,7 +13,7 @@ add_piece(piece, square, perspective = "w", piece_scale = 0.85)
 
 \item{perspective}{Board perspective for the added piece (needs to be set to the same as persepctive used with \code{plot_fen()})}
 
-\item{piece_scale}{Piece scaling factor (default = 0.85)}
+\item{piece_scale}{Piece scaling factor (default = 0.825)}
 }
 \value{
 
