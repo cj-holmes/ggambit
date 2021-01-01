@@ -16,9 +16,10 @@ pgn_to_df(pgn, pgn_tags = "seven")
   }}
 }
 \value{
-A list containing dataframes of each game found in the PGN text file
+A dataframe
 }
 \description{
-This is an \bold{experimental} function that attempts to parse raw (un-annotated) Portable Game Notation (PGN) files into a dataframe. It is
-  also very \bold{slow}
+**USE WITH CAUTION** This is an \bold{experimental} function that attempts to parse
+  raw (un-annotated) Portable Game Notation (PGN) files into a dataframe. It is buggy and relies heavily on the PGN being in the correct format.
+  It is also very \bold{slow}!
 }

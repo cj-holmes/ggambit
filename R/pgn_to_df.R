@@ -1,7 +1,8 @@
 #' Parse PGN text into a dataframe EXPERIMENTAL
 #'
-#' This is an \bold{experimental} function that attempts to parse raw (un-annotated) Portable Game Notation (PGN) files into a dataframe. It is
-#'   also very \bold{slow}
+#' **USE WITH CAUTION** This is an \bold{experimental} function that attempts to parse
+#'   raw (un-annotated) Portable Game Notation (PGN) files into a dataframe. It is buggy and relies heavily on the PGN being in the correct format.
+#'   It is also very \bold{slow}!
 #'
 #' @param pgn A raw (un-annotated) PGN text file (can contain multiple PGNs)
 #' @param pgn_tags one of
@@ -10,11 +11,11 @@
 #'   \item "all_present" - All tags found in the PGN file
 #'   }
 #'
-#' @return A list containing dataframes of each game found in the PGN text file
+#' @return A dataframe
 #' @export
 pgn_to_df <- function(pgn, pgn_tags = "seven"){
 
-  message("**USE WITH CAUTION** This function is experimental and buggy\nIt's also slow (approx 22 seconds to parse 1000 PGNs on my laptop)")
+  message("**USE WITH CAUTION** this function is experimental and buggy\nIt's also slow (approx. 22 seconds to parse 1000 PGNs on my laptop)")
 
   # Clean and split the PGN file up into individual PGNs
   my_pgns <-
@@ -40,8 +41,9 @@ pgn_to_df <- function(pgn, pgn_tags = "seven"){
   # For information
   if(length(my_pgns) > 50) message(paste0("Parsing ", length(my_pgns), " games..."))
 
-  # Map across each PGN
-  purrr::map(my_pgns, function(x){
+  # Map across each PGN and bind all together
+  dplyr::bind_rows(
+    purrr::map(my_pgns, function(x){
 
     # Extract tags
     tags <-
@@ -54,18 +56,11 @@ pgn_to_df <- function(pgn, pgn_tags = "seven"){
       tibble::tibble(a=.) %>%
       tidyr::separate(a, into=c("tag", "value"), sep=" ", extra="merge", fill="right")
 
-    # A tags argument to the function could have 3 options for the user
-    # Return all known tags (with missing values as NA) - left join to all_tags
-    # Return only tags present in PGN - dont join to all_tags
-    # Provide a vector of the tags wanted (with missing values as NA) - left join to all_tags and then filter to only those wanted?
+    # PGN tags of 'seven' or 'all_present'
+    # Defaults to 'seven' if anything else is passed
     if(pgn_tags == "seven"){
       tags <-
         ggambit::seven_tag_roster %>%
-        dplyr::left_join(tags, by=c("tag" = "tag")) %>%
-        tidyr::pivot_wider(id_cols = tag, names_from = tag)
-    } else if(pgn_tags == "all"){
-      tags <-
-        ggambit::all_tags %>%
         dplyr::left_join(tags, by=c("tag" = "tag")) %>%
         tidyr::pivot_wider(id_cols = tag, names_from = tag)
     } else if(pgn_tags == "all_present"){
@@ -89,13 +84,14 @@ pgn_to_df <- function(pgn, pgn_tags = "seven"){
       tibble::tibble(raw_moves = .) %>%
       dplyr::mutate(move_number = dplyr::row_number()) %>%
       # Fill to the right if the black does not make a last move (checkmate on whites move)
-      # Merge extra pieces if move text is separated by two spaces (which Ive come across from opening tree PGN files)
       tidyr::separate(raw_moves, into=c("w", "b"), sep = " ", fill="right", extra = "merge") %>%
       tidyr::pivot_longer(cols=c("w", "b"), names_to = "colour", values_to = "move") %>%
-      dplyr::mutate(square = stringr::str_extract(move, "[A-z]{1}[0-9]{1}"),
+      # Extract square that was moved to as a single lowercase letter followed by a single number
+      # Convert the square to x and y coordinates
+      dplyr::mutate(square = stringr::str_extract(move, "[a-z]{1}[0-9]{1}"),
                     x = ggambit::square_lookup[substr(square, 1, 1)],
                     y = as.numeric(substr(square, 2, 2))) %>%
       dplyr::bind_cols(tags)
-  })
+  }))
 
 }
