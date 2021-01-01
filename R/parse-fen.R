@@ -32,7 +32,7 @@ fen_to_df <- function(fen){
   # Extract pieces section from the FEN and replace them with their notation_lookup value
   # Then create a vector of letters (should always be length 64)
   pieces_vector <-
-    notation_lookup[stringr::str_split(parse_fen(fen)['pieces'], "")[[1]]] %>%
+    ggambit::notation_lookup[stringr::str_split(parse_fen(fen)['pieces'], "")[[1]]] %>%
     stringr::str_flatten() %>%
     stringr::str_split("") %>%
     unlist()

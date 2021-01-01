@@ -8,7 +8,7 @@ add_box(
   bottom_left,
   top_right,
   size = 1.5,
-  linetype = "dashed",
+  linetype = "solid",
   fill = NA,
   col = "red",
   ...

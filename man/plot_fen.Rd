@@ -7,11 +7,14 @@
 plot_fen(
   fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
   perspective = "w",
-  cols = "brown",
-  piece_scale = 0.85,
+  palette = "brown",
+  piece_scale = 0.825,
   show_coords = TRUE,
   show_fen = FALSE,
-  newspaper_spacing = 0.08
+  news_spacing = 0.12,
+  news_thickness = 0.5,
+  border_col = NA,
+  border_size = 0.5
 )
 }
 \arguments{
@@ -19,7 +22,7 @@ plot_fen(
 
 \item{perspective}{view board from white "w" or black "b" perspective (default = "w")}
 
-\item{cols}{A single character colour theme listed below or a length 2 vector of colours ordered dark, light (default = "brown")
+\item{palette}{A single character colour theme listed below or a length 2 vector of colours ordered dark, light (default = "brown")
 \itemize{
   \item "brown"
   \item "blue"
@@ -32,13 +35,19 @@ plot_fen(
   \item "news"
   }}
 
-\item{piece_scale}{scaling factor for piece sizes (default = 0.85)}
+\item{piece_scale}{scaling factor for piece sizes (default = 0.825)}
 
 \item{show_coords}{logical - should the board coordinates be printed? (default = TRUE)}
 
 \item{show_fen}{logical - should the FEN be printed in the plot caption? (default = FALSE)}
 
-\item{newspaper_spacing}{spacing for shading lines if \code{cols = "news"}}
+\item{news_spacing}{spacing of shading lines if \code{palette = "news"} (default = 0.12)}
+
+\item{news_thickness}{thickness of shading lines if \code{palette = "news"} (default = 0.5)}
+
+\item{border_col}{Chess board border colour (default = NA (no border))}
+
+\item{border_size}{Chess board border size (default = 0.5)}
 }
 \value{
 A ggplot2 plot object

@@ -9,7 +9,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
-  out.width = "70%",
+  out.width = "60%",
   dpi = 300)
 ```
 
@@ -46,7 +46,7 @@ plot_fen()
 Use `add_arrow()`, `highlight_squares()`, `add_piece()`, `add_box()` and `fade_board()` to include simple annotations specified by chess board squares. These annotations are added to the plot in layers.
 ```{r}
 plot_fen() + add_arrow("e2", "e4") + highlight_squares(c("d5", "f5"))
-plot_fen() + add_box("c3", "f6", fill="white", alpha=1/2) + add_arrow("g1", "f3")
+plot_fen() + add_box("d4", "e5", fill="white", alpha=1/2) + add_arrow("g1", "f3")
 plot_fen() + fade_board() + add_arrow("e2", "e4")
 plot_fen("8/8/8/8/8/8/8/8 w KQkq - 0 1") + add_piece("q", "e4")
 ```
@@ -71,13 +71,13 @@ An empty chess board can be plotted by supplying the following FEN
 plot_fen("8/8/8/8/8/8/8/8 w KQkq - 0 1")
 ```
 
-Square fill colours can be specified with the `cols` argument. See `plot_fen()` documentation for more details. An attempt at newspaper style can be set using `cols = "news"`
+Square fill colours can be specified with the `palette` argument. See `plot_fen()` documentation for more details. An attempt at newspaper style can be set using `palette = "news"`
 ```{r}
-plot_fen(cols = "green")
-plot_fen(cols = "news")
+plot_fen(palette = "green")
+plot_fen(palette = "news")
 ```
 
 Remove/add FEN notation caption and board coordinates with the `show_coords` and `show_fen` arguments to `plot_fen()`
 ```{r}
-plot_fen(cols = "grey", show_fen = TRUE)
+plot_fen(palette = "grey", show_fen = TRUE)
 ```

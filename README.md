@@ -45,7 +45,7 @@ white’s perspective)
 plot_fen()
 ```
 
-<img src="man/figures/README-unnamed-chunk-4-1.png" width="70%" />
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="60%" />
 
 Use `add_arrow()`, `highlight_squares()`, `add_piece()`, `add_box()` and
 `fade_board()` to include simple annotations specified by chess board
@@ -55,25 +55,25 @@ squares. These annotations are added to the plot in layers.
 plot_fen() + add_arrow("e2", "e4") + highlight_squares(c("d5", "f5"))
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-1.png" width="70%" />
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="60%" />
 
 ``` r
-plot_fen() + add_box("c3", "f6", fill="white", alpha=1/2) + add_arrow("g1", "f3")
+plot_fen() + add_box("d4", "e5", fill="white", alpha=1/2) + add_arrow("g1", "f3")
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-2.png" width="70%" />
+<img src="man/figures/README-unnamed-chunk-5-2.png" width="60%" />
 
 ``` r
 plot_fen() + fade_board() + add_arrow("e2", "e4")
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-3.png" width="70%" />
+<img src="man/figures/README-unnamed-chunk-5-3.png" width="60%" />
 
 ``` r
 plot_fen("8/8/8/8/8/8/8/8 w KQkq - 0 1") + add_piece("q", "e4")
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-4.png" width="70%" />
+<img src="man/figures/README-unnamed-chunk-5-4.png" width="60%" />
 
 ### A more interesting example
 
@@ -85,7 +85,7 @@ my_fen <- "2k4r/pp3pp1/2p1bn1p/4N3/1b2PQ2/4KB2/Pq1r1PPP/R6R b - - 1 18"
 plot_fen(my_fen) + add_arrow("b4", "c5") + highlight_squares("e3")
 ```
 
-<img src="man/figures/README-unnamed-chunk-7-1.png" width="70%" />
+<img src="man/figures/README-unnamed-chunk-7-1.png" width="60%" />
 
 Change perspective with the `perspective` argument
 
@@ -93,7 +93,7 @@ Change perspective with the `perspective` argument
 plot_fen(my_fen, perspective = "b") + add_arrow("b4", "c5") + highlight_squares("e3")
 ```
 
-<img src="man/figures/README-unnamed-chunk-8-1.png" width="70%" />
+<img src="man/figures/README-unnamed-chunk-8-1.png" width="60%" />
 
 ## Board customisation
 
@@ -103,29 +103,29 @@ An empty chess board can be plotted by supplying the following FEN
 plot_fen("8/8/8/8/8/8/8/8 w KQkq - 0 1")
 ```
 
-<img src="man/figures/README-unnamed-chunk-9-1.png" width="70%" />
+<img src="man/figures/README-unnamed-chunk-9-1.png" width="60%" />
 
-Square fill colours can be specified with the `cols` argument. See
+Square fill colours can be specified with the `palette` argument. See
 `plot_fen()` documentation for more details. An attempt at newspaper
-style can be set using `cols = "news"`
+style can be set using `palette = "news"`
 
 ``` r
-plot_fen(cols = "green")
+plot_fen(palette = "green")
 ```
 
-<img src="man/figures/README-unnamed-chunk-10-1.png" width="70%" />
+<img src="man/figures/README-unnamed-chunk-10-1.png" width="60%" />
 
 ``` r
-plot_fen(cols = "news")
+plot_fen(palette = "news")
 ```
 
-<img src="man/figures/README-unnamed-chunk-10-2.png" width="70%" />
+<img src="man/figures/README-unnamed-chunk-10-2.png" width="60%" />
 
 Remove/add FEN notation caption and board coordinates with the
 `show_coords` and `show_fen` arguments to `plot_fen()`
 
 ``` r
-plot_fen(cols = "grey", show_fen = TRUE)
+plot_fen(palette = "grey", show_fen = TRUE)
 ```
 
-<img src="man/figures/README-unnamed-chunk-11-1.png" width="70%" />
+<img src="man/figures/README-unnamed-chunk-11-1.png" width="60%" />
