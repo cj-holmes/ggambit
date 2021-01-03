@@ -110,7 +110,7 @@ pgn_to_df <- function(pgn, pgn_tags = "seven"){
                   capture = stringr::str_detect(move, "x"),
                   mate = stringr::str_detect(move, "#"),
                   promotion = stringr::str_detect(move, "="),
-                  promotion_piece = dplyr::case_when(promotion ~ str_extract(move, "[:upper:]"),
+                  promotion_piece = dplyr::case_when(promotion ~ stringr::str_extract(move, "[:upper:]"),
                                                      TRUE ~ NA_character_)) %>%
     dplyr::rename_with(tolower)
 
