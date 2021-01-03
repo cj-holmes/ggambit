@@ -58,22 +58,10 @@ plot_fen() + add_arrow("e2", "e4") + highlight_squares(c("d5", "f5"))
 <img src="man/figures/README-unnamed-chunk-5-1.png" width="60%" />
 
 ``` r
-plot_fen() + add_box("d4", "e5", fill="white", alpha=1/2) + add_arrow("g1", "f3")
+plot_fen() + add_box("d4", "e5", fill="white", alpha=1/2) + add_arrow("c2", "c4")
 ```
 
 <img src="man/figures/README-unnamed-chunk-5-2.png" width="60%" />
-
-``` r
-plot_fen() + fade_board() + add_arrow("e2", "e4")
-```
-
-<img src="man/figures/README-unnamed-chunk-5-3.png" width="60%" />
-
-``` r
-plot_fen("8/8/8/8/8/8/8/8 w KQkq - 0 1") + add_piece("q", "e4")
-```
-
-<img src="man/figures/README-unnamed-chunk-5-4.png" width="60%" />
 
 ### A more interesting example
 
@@ -97,35 +85,64 @@ plot_fen(my_fen, perspective = "b") + add_arrow("b4", "c5") + highlight_squares(
 
 ## Board customisation
 
-An empty chess board can be plotted by supplying the following FEN
-
-``` r
-plot_fen("8/8/8/8/8/8/8/8 w KQkq - 0 1")
-```
-
-<img src="man/figures/README-unnamed-chunk-9-1.png" width="60%" />
-
-Square fill colours can be specified with the `palette` argument. See
-`plot_fen()` documentation for more details. An attempt at newspaper
-style can be set using `palette = "news"`
+Square fill colours can be specified with the `palette` argument. An
+attempt at a newspaper style can be set using `palette = "news"`. See
+`plot_fen()` documentation for more details and options.
 
 ``` r
 plot_fen(palette = "green")
 ```
 
-<img src="man/figures/README-unnamed-chunk-10-1.png" width="60%" />
+<img src="man/figures/README-unnamed-chunk-9-1.png" width="60%" />
 
 ``` r
 plot_fen(palette = "news")
 ```
 
-<img src="man/figures/README-unnamed-chunk-10-2.png" width="60%" />
+<img src="man/figures/README-unnamed-chunk-9-2.png" width="60%" />
 
-Remove/add FEN notation caption and board coordinates with the
-`show_coords` and `show_fen` arguments to `plot_fen()`
+## Parsing PGN files
+
+There is a new **experimental** (and slow\!) function for the parsing of
+PGN files to a long-format dataframe `pgn_to_df()`. Currently this
+function only works with raw (un-annotated) PGN files and **should be
+used with extreme caution**.
+
+Here I demonstrate using it to parse my own personal PGNs (from
+[Lichess](https://lichess.org/)) and combining it with `plot_fen()` to
+visualise where I move pieces to as a heat map.
+
+Parse the PGN file
 
 ``` r
-plot_fen(palette = "grey", show_fen = TRUE)
+pgn_df <- pgn_to_df('tests/lichess_holmestorm_2021-01-03.pgn')
 ```
 
-<img src="man/figures/README-unnamed-chunk-11-1.png" width="60%" />
+Visualise
+
+``` r
+library(ggplot2)
+library(dplyr)
+
+plot_fen(palette = c("white", "white"), show_coords = FALSE, border_col = 1)+
+  fade_board(fade = 0.3)+
+  ggnewscale::new_scale_fill()+
+  geom_tile(data =
+              pgn_df %>%
+              filter(player == "holmestorm") %>%
+              mutate(piece_moved = factor(piece_moved, levels = c("P", "B", "N", "R", "Q", "K"))) %>%
+              count(colour, piece_moved, x, y) %>%
+              group_by(colour, piece_moved) %>%
+              mutate(t = sum(n),
+                     p = 100 * (n/t)),
+            aes(x, y, fill = p), alpha = 0.9)+
+  facet_grid(colour ~ piece_moved)+
+  scale_fill_viridis_c(option="viridis")+
+  theme(legend.position = "bottom")+
+  labs(title = "Where do I move my pieces to?",
+       subtitle = "Facetted by piece [columns] and side (White/Black) [rows]",
+       fill = "%",
+       caption = "Data source: Lichess, Username: holmestorm")
+```
+
+<img src="man/figures/README-unnamed-chunk-11-1.png" width="100%" />
