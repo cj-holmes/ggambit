@@ -3,7 +3,13 @@
 
 # ggambit <img src="data-raw/hex-logo/ggambit-hex-logo.png" align="right" height="139"/>
 
-**This is a work in progress - please log any bugs found**
+<!-- badges: start -->
+
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+<!-- badges: end -->
+
+**THIS IS A DEVELOPMENTAL WORK IN PROGRESS**
 
 ## Introduction
 
@@ -20,7 +26,7 @@ be added to the image, giving the user full creative control.
 Chess piece SVG design file downloaded from
 <https://commons.wikimedia.org/wiki/File:Chess_Pieces_Sprite.svg>
 
-  - jurgenwesterhof (adapted from work of Cburnett), CC BY-SA 3.0
+-   jurgenwesterhof (adapted from work of Cburnett), CC BY-SA 3.0
     <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia
     Commons
 
@@ -103,7 +109,7 @@ plot_fen(palette = "news")
 
 ## Parsing PGN files
 
-There is a new **experimental** (and slow\!) function for the parsing of
+There is a new **experimental** (and slow!) function for the parsing of
 PGN files to a long-format dataframe `pgn_to_df()`. Currently this
 function only works with raw (un-annotated) PGN files and **should be
 used with extreme caution**.

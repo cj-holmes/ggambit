@@ -15,7 +15,11 @@ knitr::opts_chunk$set(
 
 # ggambit <img src="data-raw/hex-logo/ggambit-hex-logo.png" align="right" height="139"/>
 
-**This is a work in progress - please log any bugs found**
+<!-- badges: start -->
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+<!-- badges: end -->
+
+**THIS IS A DEVELOPMENTAL WORK IN PROGRESS**
 
 ## Introduction
 The aim of `ggambit` is to visualise Forsyth–Edwards Notation (FEN) chess positions in R using `ggplot2`. Simple annotations (such as arrows and circles) can also be added to the image by specifying standard chess square notation (e4, c5, etc...). 

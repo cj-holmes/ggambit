@@ -42,7 +42,7 @@ plot_fen <- function(fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -
                      piece_scale = 0.825,
                      show_coords = TRUE,
                      show_fen = FALSE,
-                     news_spacing = 0.12,
+                     news_spacing = 0.1,
                      news_thickness = 0.5,
                      border_col = NA,
                      border_size = 0.5){
@@ -98,8 +98,8 @@ plot_fen <- function(fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -
       ggplot2::geom_segment(ggplot2::aes(x=x_start, y=y_start, xend=x_end, yend=y_end, group = rn),
                             size=news_thickness)+
       ggplot2::annotate(geom="tile",
-                        x=squares$x[squares$black],
-                        y=squares$y[squares$black],
+                        x=squares$x[!squares$black],
+                        y=squares$y[!squares$black],
                         height=1, width=1, fill="white")+
       # Bottom
       ggplot2::annotate("rect", xmin = 0.5, xmax = 8.5, ymin=-Inf, ymax = 0.5, col="white", fill=NA)+
